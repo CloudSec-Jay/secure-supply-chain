@@ -1,5 +1,14 @@
 !#/bin/bash
 
-#script to achieve CIS-SOC1 hardrnhing for rhel based linux
+#script to achieve CIS-SOC1 hardrnhing for rhel based linux workstation
+
+#Adds Cramfs to blacklist so it doesn't load on launch - small read-only files system primaly used in small footprint devices such as embedded systems
+
+sudo sed -i '$a install cramfs /bin/true
+blacklist cramfs' /etc/modprobe.d/cramfs.conf
+
+#Unloads module if active in kernal
+
+sudo modprobe -r cramfs 2>/dev/null || true
 
 
